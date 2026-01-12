@@ -166,7 +166,7 @@ public class SpeedPlus extends BlackOutModule {
             if (pauseSneak.get() && mc.player.isSneaking()) {
                 return;
             }
-            if (pauseElytra.get() && mc.player.isFallFlying()) {
+            if (pauseElytra.get() && mc.player.isGliding()) {
                 return;
             }
             if (pauseFly.get() && mc.player.getAbilities().flying) {
@@ -197,8 +197,8 @@ public class SpeedPlus extends BlackOutModule {
                 }
             }
 
-            double forward = mc.player.input.movementForward;
-            double sideways = mc.player.input.movementSideways;
+            double forward = mc.player.input.getMovementInput().y;
+            double sideways = mc.player.input.getMovementInput().x;
 
             double yaw = getYaw(forward, sideways);
 
@@ -215,7 +215,7 @@ public class SpeedPlus extends BlackOutModule {
                     jumpPhase = 4;
                 }
                 if (jumpPhase == 2) {
-                    ((IVec3d) event.movement).setY(0.4);
+                    ((IVec3d) event.movement).meteor$setY(0.4);
                     velocity *= 1.85;
                     jumpPhase = 3;
                 }
@@ -248,9 +248,9 @@ public class SpeedPlus extends BlackOutModule {
             switch (mode.get()) {
                 case CCStrafe, Instant -> {
                     if (move) {
-                        ((IVec3d) event.movement).set(motion * x, y, motion * z);
+                        ((IVec3d) event.movement).meteor$set(motion * x, y, motion * z);
                     } else {
-                        ((IVec3d) event.movement).set(0, y, 0);
+                        ((IVec3d) event.movement).meteor$set(0, y, 0);
                     }
                 }
                 case Accelerate -> {
@@ -261,7 +261,7 @@ public class SpeedPlus extends BlackOutModule {
                         az = z;
                     }
 
-                    ((IVec3d) event.movement).setXZ(speed.get() * ax * acceleration, speed.get() * az * acceleration);
+                    ((IVec3d) event.movement).meteor$setXZ(speed.get() * ax * acceleration, speed.get() * az * acceleration);
                 }
             }
         }

@@ -6,6 +6,7 @@ import net.minecraft.block.*;
 import net.minecraft.component.type.ItemEnchantmentsComponent;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.Enchantments;
+import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
@@ -29,10 +30,8 @@ public class OLEPOSSUtils {
     }
 
     public static boolean hasAquaAffinity(LivingEntity entity) {
-        for (ItemStack stack : entity.getArmorItems()) {
-            if (hasEnchantment(Enchantments.AQUA_AFFINITY, stack)) return true;
-        }
-        return false;
+        ItemStack stack = entity.getEquippedStack(EquipmentSlot.HEAD);
+        return hasEnchantment(Enchantments.AQUA_AFFINITY, stack);
     }
 
     public static boolean hasEnchantment(RegistryKey<Enchantment> enchantment, ItemStack stack) {
@@ -109,6 +108,6 @@ public class OLEPOSSUtils {
     }
 
     public static boolean collidable(BlockPos block) {
-        return ((AbstractBlockAccessor) mc.world.getBlockState(block).getBlock()).isCollidable();
+        return ((AbstractBlockAccessor) mc.world.getBlockState(block).getBlock()).meteor$isCollidable();
     }
 }

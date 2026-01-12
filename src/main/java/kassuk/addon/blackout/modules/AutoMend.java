@@ -16,6 +16,7 @@ import meteordevelopment.meteorclient.utils.player.InvUtils;
 import meteordevelopment.orbit.EventHandler;
 import meteordevelopment.orbit.EventPriority;
 import net.minecraft.client.network.AbstractClientPlayerEntity;
+import net.minecraft.component.type.AttributeModifierSlot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.util.Hand;
@@ -306,7 +307,7 @@ public class AutoMend extends BlackOutModule {
     private boolean shouldMend() {
         List<ItemStack> armors = new ArrayList<>();
 
-        for (int i = 0; i < 4; i++) armors.add(mc.player.getInventory().getArmorStack(i));
+        for (int i = 0; i < 4; i++) armors.add(mc.player.getEquippedStack(AttributeModifierSlot.ARMOR.getSlots().get(i)));
 
         float max = -1;
         float lowest = 500;

@@ -28,6 +28,8 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.client.network.AbstractClientPlayerEntity;
+import net.minecraft.component.type.ToolComponent;
+import net.minecraft.component.type.WeaponComponent;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.enchantment.Enchantments;
 import net.minecraft.entity.Entity;
@@ -37,10 +39,10 @@ import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
-import net.minecraft.item.SwordItem;
 import net.minecraft.network.packet.c2s.play.PlayerActionC2SPacket;
 import net.minecraft.network.packet.c2s.play.PlayerInteractEntityC2SPacket;
 import net.minecraft.network.packet.c2s.play.UpdateSelectedSlotC2SPacket;
+import net.minecraft.registry.Registries;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.*;
 
@@ -561,7 +563,7 @@ public class AutoMine extends BlackOutModule {
 
     private boolean isPaused() {
         if (pauseEat.get() && mc.player.isUsingItem()) return true;
-        return pauseSword.get() && mc.player.getMainHandStack().getItem() instanceof SwordItem;
+        return pauseSword.get() && Registries.ITEM.getId(mc.player.getMainHandStack().getItem()).toString().endsWith("_sword");
     }
 
     private boolean civCheck() {
@@ -648,7 +650,8 @@ public class AutoMine extends BlackOutModule {
             }
             case AutoCity -> {
                 if (crystalAt(target.crystalPos) != null) return true;
-                if (!EntityUtils.intersectsWithEntity(Box.from(new BlockBox(target.crystalPos)).withMaxY(target.crystalPos.getY() + (SettingUtils.cc() ? 1 : 2)), entity -> !entity.isSpectator())) return placeCrystal();
+                if (!EntityUtils.intersectsWithEntity(Box.from(new BlockBox(target.crystalPos)).withMaxY(target.crystalPos.getY() + (SettingUtils.cc() ? 1 : 2)), entity -> !entity.isSpectator()))
+                    return placeCrystal();
             }
             default -> {
                 return true;

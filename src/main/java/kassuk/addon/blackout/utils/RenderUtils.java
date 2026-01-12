@@ -18,26 +18,25 @@ public class RenderUtils {
     private static final VertexConsumerProvider.Immediate vertex = VertexConsumerProvider.immediate(new BufferAllocator(2048));
 
     public static void rounded(MatrixStack stack, float x, float y, float w, float h, float radius, int p, int color) {
-
-        Matrix4f matrix4f = stack.peek().getPositionMatrix();
-
-        float a = (float) ColorHelper.Argb.getAlpha(color) / 255.0F;
-        float r = (float) ColorHelper.Argb.getRed(color) / 255.0F;
-        float g = (float) ColorHelper.Argb.getGreen(color) / 255.0F;
-        float b = (float) ColorHelper.Argb.getBlue(color) / 255.0F;
-
-        RenderSystem.enableBlend();
-        RenderSystem.setShader(GameRenderer::getPositionColorProgram);
-
-        BufferBuilder bufferBuilder = Tessellator.getInstance().begin(VertexFormat.DrawMode.TRIANGLE_FAN, VertexFormats.POSITION_COLOR);
-
-        corner(x + w, y, radius, 360, p, r, g, b, a, bufferBuilder, matrix4f);
-        corner(x, y, radius, 270, p, r, g, b, a, bufferBuilder, matrix4f);
-        corner(x, y + h, radius, 180, p, r, g, b, a, bufferBuilder, matrix4f);
-        corner(x + w, y + h, radius, 90, p, r, g, b, a, bufferBuilder, matrix4f);
-
-        BufferRenderer.drawWithGlobalProgram(bufferBuilder.end());
-        RenderSystem.disableBlend();
+//        Matrix4f matrix4f = stack.peek().getPositionMatrix();
+//
+//        float a = (float) ColorHelper.getAlpha(color) / 255.0F;
+//        float r = (float) ColorHelper.getRed(color) / 255.0F;
+//        float g = (float) ColorHelper.getGreen(color) / 255.0F;
+//        float b = (float) ColorHelper.getBlue(color) / 255.0F;
+//
+//        RenderSystem.enableBlend();
+//        RenderSystem.setShader(GameRenderer::getPositionColorProgram);
+//
+//        BufferBuilder bufferBuilder = Tessellator.getInstance().begin(VertexFormat.DrawMode.TRIANGLE_FAN, VertexFormats.POSITION_COLOR);
+//
+//        corner(x + w, y, radius, 360, p, r, g, b, a, bufferBuilder, matrix4f);
+//        corner(x, y, radius, 270, p, r, g, b, a, bufferBuilder, matrix4f);
+//        corner(x, y + h, radius, 180, p, r, g, b, a, bufferBuilder, matrix4f);
+//        corner(x + w, y + h, radius, 90, p, r, g, b, a, bufferBuilder, matrix4f);
+//
+//        BufferRenderer.drawWithGlobalProgram(bufferBuilder.end());
+//        RenderSystem.disableBlend();
     }
 
     public static void corner(float x, float y, float radius, int angle, float p, float r, float g, float b, float a, BufferBuilder bufferBuilder, Matrix4f matrix4f) {
@@ -52,25 +51,25 @@ public class RenderUtils {
     }
 
     public static void quad(MatrixStack stack, float x, float y, float w, float h, int color) {
-        Matrix4f matrix4f = stack.peek().getPositionMatrix();
-
-        float a = (float) ColorHelper.Argb.getAlpha(color) / 255.0F;
-        float r = (float) ColorHelper.Argb.getRed(color) / 255.0F;
-        float g = (float) ColorHelper.Argb.getGreen(color) / 255.0F;
-        float b = (float) ColorHelper.Argb.getBlue(color) / 255.0F;
-
-        RenderSystem.enableBlend();
-        RenderSystem.setShader(GameRenderer::getPositionColorProgram);
-
-        BufferBuilder bufferBuilder = Tessellator.getInstance().begin(VertexFormat.DrawMode.TRIANGLE_FAN, VertexFormats.POSITION_COLOR);
-
-        bufferBuilder.vertex(matrix4f, x + w, y, 0).color(r, g, b, a);
-        bufferBuilder.vertex(matrix4f, x, y, 0).color(r, g, b, a);
-        bufferBuilder.vertex(matrix4f, x, y + h, 0).color(r, g, b, a);
-        bufferBuilder.vertex(matrix4f, x + w, y + h, 0).color(r, g, b, a);
-
-
-        BufferRenderer.drawWithGlobalProgram(bufferBuilder.end());
-        RenderSystem.disableBlend();
+//        Matrix4f matrix4f = stack.peek().getPositionMatrix();
+//
+//        float a = (float) ColorHelper.Argb.getAlpha(color) / 255.0F;
+//        float r = (float) ColorHelper.Argb.getRed(color) / 255.0F;
+//        float g = (float) ColorHelper.Argb.getGreen(color) / 255.0F;
+//        float b = (float) ColorHelper.Argb.getBlue(color) / 255.0F;
+//
+//        RenderSystem.enableBlend();
+//        RenderSystem.setShader(GameRenderer::getPositionColorProgram);
+//
+//        BufferBuilder bufferBuilder = Tessellator.getInstance().begin(VertexFormat.DrawMode.TRIANGLE_FAN, VertexFormats.POSITION_COLOR);
+//
+//        bufferBuilder.vertex(matrix4f, x + w, y, 0).color(r, g, b, a);
+//        bufferBuilder.vertex(matrix4f, x, y, 0).color(r, g, b, a);
+//        bufferBuilder.vertex(matrix4f, x, y + h, 0).color(r, g, b, a);
+//        bufferBuilder.vertex(matrix4f, x + w, y + h, 0).color(r, g, b, a);
+//
+//
+//        BufferRenderer.drawWithGlobalProgram(bufferBuilder.end());
+//        RenderSystem.disableBlend();
     }
 }

@@ -8,6 +8,7 @@ import meteordevelopment.meteorclient.systems.hud.HudElementInfo;
 import meteordevelopment.meteorclient.systems.hud.HudRenderer;
 import meteordevelopment.meteorclient.utils.render.color.SettingColor;
 import net.minecraft.client.util.math.MatrixStack;
+import net.minecraft.component.type.AttributeModifierSlot;
 import net.minecraft.item.ItemStack;
 
 import static meteordevelopment.meteorclient.MeteorClient.mc;
@@ -69,36 +70,40 @@ public class ArmorHudPlus extends HudElement {
 
     @Override
     public void render(HudRenderer renderer) {
-        if (mc.player == null) {return;}
+        if (mc.player == null) {
+            return;
+        }
 
         setSize(100 * scale.get() * 2, 28 * scale.get() * 2);
         MatrixStack stack = new MatrixStack();
 
         stack.translate(x, y, 0);
-        stack.scale((float)(scale.get() * 2), (float)(scale.get() * 2), 1);
+        stack.scale((float) (scale.get() * 2), (float) (scale.get() * 2), 1);
 
         if (bg.get()) {
             RenderUtils.rounded(stack, rounding.get() * 0.14f, rounding.get() * 0.14f, 100 - rounding.get() * 0.28f, 28 - rounding.get() * 0.28f, rounding.get() * 0.14f, 10, bgColor.get().getPacked());
         }
 
-        MatrixStack drawStack = renderer.drawContext.getMatrices();
-        drawStack.push();
+        var drawStack = renderer.drawContext.getMatrices();
+        drawStack.pushMatrix();
 
-        drawStack.translate(x, y, 0);
-        drawStack.scale((float)(scale.get() * 2), (float)(scale.get() * 2), 1);
+        drawStack.translate(x, y);
+        drawStack.scale((float) (scale.get() * 2), (float) (scale.get() * 2));
 
         for (int i = 3; i >= 0; i--) {
-            ItemStack itemStack = mc.player.getInventory().armor.get(i);
+            ItemStack itemStack = mc.player.getEquippedStack(AttributeModifierSlot.ARMOR.getSlots().get(i));
 
             renderer.drawContext.drawItem(itemStack, i * 20 + 12, durMode.get() == DurMode.Top ? 10 : 0);
 
-            if (itemStack.isEmpty()) {continue;}
+            if (itemStack.isEmpty()) {
+                continue;
+            }
 
             centeredText(stack,
                 String.valueOf(Math.round(100 - (float) itemStack.getDamage() / itemStack.getMaxDamage() * 100f)),
                 i * 20 + 20, durMode.get() == DurMode.Top ? 3 : 17, durColor.get().getPacked());
         }
-        drawStack.pop();
+        drawStack.popMatrix();
     }
 
     private void centeredText(MatrixStack stack, String text, int x, int y, int color) {

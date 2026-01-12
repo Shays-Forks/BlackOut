@@ -523,7 +523,7 @@ public class PistonCrystal extends BlackOutModule {
 
         if (hand == null && !switched) return;
 
-        sendPacket(new PlayerMoveC2SPacket.LookAndOnGround(pistonDir.getOpposite().asRotation(), Managers.ROTATION.lastDir[1], Managers.ON_GROUND.isOnGround()));
+        sendPacket(new PlayerMoveC2SPacket.LookAndOnGround(pistonDir.getOpposite().getPositiveHorizontalDegrees(), Managers.ROTATION.lastDir[1], Managers.ON_GROUND.isOnGround(), false));
 
         hand = hand == null ? Hand.MAIN_HAND : hand;
 

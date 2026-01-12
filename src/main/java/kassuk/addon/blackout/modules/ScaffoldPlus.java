@@ -355,16 +355,16 @@ public class ScaffoldPlus extends BlackOutModule {
     void yVel() {
         if (!tower.get()) return;
 
-        if (mc.options.jumpKey.isPressed() && mc.player.input.movementForward == 0 && mc.player.input.movementSideways == 0) {
+        if (mc.options.jumpKey.isPressed() && mc.player.input.getMovementInput().y == 0 && mc.player.input.getMovementInput().x == 0) {
             if (mc.player.isOnGround() || jumpProgress == 3) {
                 jumpProgress = 0;
             }
 
             if (jumpProgress > -1) {
                 if (jumpProgress < 3) {
-                    ((IVec3d) motion).setXZ(0, 0);
-                    ((IVec3d) motion).setY(velocities[jumpProgress]);
-                    ((IVec3d) mc.player.getVelocity()).setY(velocities[jumpProgress]);
+                    ((IVec3d) motion).meteor$setXZ(0, 0);
+                    ((IVec3d) motion).meteor$setY(velocities[jumpProgress]);
+                    ((IVec3d) mc.player.getVelocity()).meteor$setY(velocities[jumpProgress]);
                     jumpProgress++;
                 }
             }

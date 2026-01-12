@@ -66,7 +66,7 @@ public class BlackOut extends MeteorAddon {
         modules.add(new FastXP());
         modules.add(new FeetESP());
         modules.add(new FlightPlus());
-        modules.add(new Fog());
+//        modules.add(new Fog());
         modules.add(new ForceSneak());
         modules.add(new HoleFillPlus());
         modules.add(new HoleFillRewrite());
@@ -115,12 +115,12 @@ public class BlackOut extends MeteorAddon {
         hud.register(ArmorHudPlus.INFO);
         hud.register(BlackoutArray.INFO);
         hud.register(GearHud.INFO);
-        hud.register(HudWaterMark.INFO);
+//        hud.register(HudWaterMark.INFO);
         hud.register(Keys.INFO);
-        hud.register(TargetHud.INFO);
+//        hud.register(TargetHud.INFO);
         hud.register(Welcomer.INFO);
         hud.register(OnTope.INFO);
-        hud.register(CatGirl.INFO);
+//        hud.register(CatGirl.INFO);
     }
 
     private void initializeAutoPVP(Modules modules) {

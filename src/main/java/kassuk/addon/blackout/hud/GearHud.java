@@ -8,6 +8,7 @@ import meteordevelopment.meteorclient.systems.hud.HudRenderer;
 import meteordevelopment.meteorclient.utils.player.InvUtils;
 import meteordevelopment.meteorclient.utils.render.color.SettingColor;
 import net.minecraft.client.util.math.MatrixStack;
+import net.minecraft.component.type.AttributeModifierSlot;
 import net.minecraft.item.Item;
 import net.minecraft.item.Items;
 
@@ -69,15 +70,15 @@ public class GearHud extends HudElement {
         for (int i = 0; i < items.get().size(); i++) {
             int posY = (int) Math.round(y + i * 20 * scale.get() * scale.get());
 
-            MatrixStack drawStack = renderer.drawContext.getMatrices();
-            drawStack.push();
+            var drawStack = renderer.drawContext.getMatrices();
+            drawStack.pushMatrix();
 
-            drawStack.translate(x, y, 0);
-            drawStack.scale((float)(scale.get() * scale.get()), (float)(scale.get() * scale.get()), 1);
+            drawStack.translate(x, y);
+            drawStack.scale((float)(scale.get() * scale.get()), (float)(scale.get() * scale.get()));
 
             renderer.drawContext.drawItem(items.get().get(i).getDefaultStack(), x, posY);
 
-            drawStack.pop();
+            drawStack.popMatrix();
 
             renderer.text(getText(items.get().get(i).asItem()), x + 25 * scale.get() * scale.get(), posY, color.get(), shadow.get(), scale.get());
         }
@@ -99,7 +100,7 @@ public class GearHud extends HudElement {
         double rur = 0;
         if (mc.player != null) {
             for (int i = 0; i < 4; i++) {
-                rur += mc.player.getInventory().armor.get(i).getMaxDamage();
+                rur += mc.player.getEquippedStack(AttributeModifierSlot.ARMOR.getSlots().get(i)).getMaxDamage();
             }
         }
         return rur;
